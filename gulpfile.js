@@ -7,7 +7,7 @@ const gulp = require('gulp'),
 
 css_style = (done) => {
 
-    gulp.src('app/scss/main.scss')
+    gulp.src('devApp/scss/main.scss')
         .pipe(sourcemaps.init())
         .pipe(scss({
             errorLogToConsole: true,
@@ -20,7 +20,7 @@ css_style = (done) => {
         }))
         .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write('./'))
-        .pipe( gulp.dest('app/css/'))
+        .pipe( gulp.dest('build/css/'))
         .pipe(browserSync.stream());
 
     done()
@@ -29,9 +29,9 @@ css_style = (done) => {
 sync = (done) => {
     browserSync.init({
         server: {
-            baseDir: './app/'
+            baseDir: 'build/'
         },
-        port: 3000
+        port: 4550
     });
 
     done();
@@ -44,9 +44,9 @@ browserReload = (done) => {
 };
 
 watchFiles = () => {
-    gulp.watch('./app/scss/**/*', css_style);
-    gulp.watch('./app/**/*.html', browserReload);
-    gulp.watch('./app/**/*.js', browserReload);
+    gulp.watch('devApp/scss/**/*', css_style);
+    gulp.watch('devApp/**/*.html', browserReload);
+    gulp.watch('devApp/**/*.js', browserReload);
 };
 
 gulp.task('default', gulp.parallel(watchFiles, sync, css_style));
