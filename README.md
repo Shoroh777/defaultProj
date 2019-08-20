@@ -1,0 +1,2 @@
+# defaultProj
+my default project
